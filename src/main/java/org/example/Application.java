@@ -2,6 +2,7 @@ package org.example;
 
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import org.example.health.BasicHealthCheck;
 import org.example.resources.HelloWorld;
 
 public class Application extends io.dropwizard.core.Application<Configuration> {
@@ -26,6 +27,10 @@ public class Application extends io.dropwizard.core.Application<Configuration> {
         // Khai báo resource với jersey thì mới gọi được endpoint
         HelloWorld helloWorld = new HelloWorld();
         environment.jersey().register(helloWorld);
+
+        // register health check
+        BasicHealthCheck basicHealthCheck = new BasicHealthCheck();
+        environment.healthChecks().register("basic", basicHealthCheck);
     }
 
 }
